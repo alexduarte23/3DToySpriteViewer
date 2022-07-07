@@ -92,10 +92,11 @@ function setupEvents() {
 }
 
 function main() {
-    /*readTextFile("/list.json", function(text){
+    readTextFile("./list.json", function(text){
         var data = JSON.parse(text);
-        buildContentItems(data)
-    });*/
+        console.log(data);
+        //buildContentItems(data)
+    });
 
     setupEvents();
 
