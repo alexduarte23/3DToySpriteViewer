@@ -54,7 +54,7 @@ hr {
     margin: 0 auto;
 }
 
-#section-button {
+.section-button {
     background: none;
     position: absolute;
     right: 0;
@@ -67,33 +67,12 @@ hr {
     cursor: pointer;
 }
 
-#section-button:hover {
+.section-button:hover {
     background: black;
     color: white;
     font-weight: bold;
 }
 
-
-/*#header::before {
-    content: '';
-    display: block;
-    z-index: -1;
-    position: absolute;
-    background: black;
-    top: calc(100% - 2px);
-    bottom: 0;
-    left: 50%;
-    width: 800px;
-    max-width: 90%;
-    transform: translateX(-50%);
-    transition: all 0.5s;
-}
-
-#header:hover::before {
-    width: 100%;
-    max-width: 100%;
-    top: 0;
-}*/
 
 .dark #header {
     background: black;
@@ -107,16 +86,28 @@ hr {
     filter: none;
 }
 
-.dark #section-button {
+.dark .section-button {
     border-color: white;
     color: white;
 }
 
-.dark #section-button:hover {
+.dark .section-button:hover {
     background: white;
     color: black;
 }
 
+/* To look better when an overlay popup is active */
+.dark #header::before {
+    content: '';
+    display: block;
+    z-index: -1;
+    position: absolute;
+    background: black;
+    top: -50px;
+    bottom: 0;
+    left: -50px;
+    right: -50px;
+}
 
 
 
@@ -140,7 +131,7 @@ hr {
 
 /************* Image Card Gallery *************/
 
-#gallery {
+.gallery {
     margin: 0 auto;
     margin-top: 150px;
     padding: 30px;
@@ -150,11 +141,18 @@ hr {
     /*width: 1700px;
     max-width: 100vw;*/
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(max-content, 450px));
+    /*grid-template-columns: repeat(auto-fill, minmax(max-content, 450px));*/
     grid-column-gap: 30px;
     grid-row-gap: 30px;
-
     transition: filter 0.2s;
+}
+
+#product-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(max-content, 450px));
+}
+
+#client-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(max-content, 300px));
 }
 
 .gallery-item {

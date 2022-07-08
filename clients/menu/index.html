@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>L2 Portefolio: Homepage</title>
+    <title>L2 Portefolio: Area de Clientes</title>
     <meta name="descriLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  content="Homepage for the L2 Viewer website">
     <meta name="author" content="L2">
 
-    <meta property="og:title" content="L2 Portefolio: Homepage">
+    <meta property="og:title" content="L2 Portefolio: Area de Clientes">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:descriLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  content="Homepage for the L2 Viewer website">
@@ -22,16 +22,16 @@
     <meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#FFF" media="(prefers-color-scheme: light)">-->
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 
 </head>
 
-<body>
+<body class="dark">
     <div id="header">
-        <img id="logo" src="./logo_small.png">
+        <img id="logo" src="../../logo_small.png">
         <p id="title">Portefólio</p>
         <hr>
-        <div id="to-client-menu" class="section-button">Área de Clientes</div>
+        <div id="to-home" class="section-button">Área Geral</div>
         <!-- id determines function -->
     </div>
 
@@ -39,7 +39,7 @@
         <!--<div id="tag-bar">
             <div class="tag"></div>
         </div>-->
-        <div id="product-gallery" class="gallery">
+        <div id="client-gallery" class="gallery">
             <!-- id determines item width -->
             <div class="gallery-item">
                 <img src="https://picsum.photos/200" class="item-image">
@@ -132,7 +132,7 @@
     <div id="pwd-overlay"  class="full-overlay hidden">
         <div class="backcatcher"></div>
         <div class="popup-card" id="pwd-popup">
-            <img src="./close_x.svg" class="close-icon">
+            <img src="../../close_x.svg" class="close-icon">
             <p class="popup-title">Acesso Restrito</p>
             <form id="pwd-form">
                 <label for="pwd">Senha</label>
@@ -141,6 +141,6 @@
             </form>
         </div>
     </div>
-    <script src="./script.js"></script>
+    <script src="../../script.js"></script>
 </body>
 </html>

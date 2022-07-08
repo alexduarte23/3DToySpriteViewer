@@ -33,12 +33,13 @@ function buildContentItems(data) {
 
 
 function togglePopup() {
-    var gallery = document.getElementById("gallery");
+    var content = document.getElementById("content");
     var html = document.getElementsByTagName('html')[0];
     var body = document.getElementsByTagName('body')[0];
     var overlay = document.getElementById("pwd-overlay");
     var popup = document.getElementById("pwd-popup");
     var pwdElement = document.getElementById("pwd");
+    var header = document.getElementById("header");
 
     // compensate for scrollbar removal
     var scrollbarWidth = window.innerWidth - html.clientWidth
@@ -47,7 +48,8 @@ function togglePopup() {
 
     overlay.classList.toggle("hidden");
     overlay.classList.toggle("visible");
-    gallery.classList.toggle("blured");
+    content.classList.toggle("blured");
+    header.classList.toggle("blured");
     html.classList.toggle("no-scroll");
 
     pwdElement.value = "";
@@ -82,12 +84,26 @@ function classForeach(classname, func) {
         func(el);
 }
 
+function switchSection() {
+    var body = document.getElementsByTagName('body')[0];
+    body.classList.toggle("dark");
+}
+
 function setupEvents() {
     classForeach("gallery-item", item => item.onclick = togglePopup);
     classForeach("backcatcher", item => item.onclick = togglePopup);
     classForeach("close-icon", item => item.onclick = togglePopup);
     
     document.getElementById("pwd-form").onsubmit = validatePwd;
+
+    var btn = document.getElementById("to-client-menu");
+    if (btn !== null)
+        btn.onclick = function() { window.open('./clients/menu', '_self') };
+    btn = document.getElementById("to-home");
+    if (btn !== null)
+        btn.onclick = function() { window.open('../../', '_self') };
+
+    //document.getElementById("to-client-menu").onclick = function() { window.open('./wine_box', '_self') };
     document.getElementsByClassName("gallery-item")[0].onclick = openPage;
 }
 
