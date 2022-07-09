@@ -35,11 +35,10 @@ function togglePwdPopup() {
     }
 }
 
-function validatePwd() {
+function validatePwd(onSucess) {
     var client = g_clients[$('#pwd').data('clientIdx')];
     if ($('#pwd').val() == client.password) {
-        togglePwdPopup();
-        window.location.href = `../?id=${client.id}&pwd=${client.password}`
+        onSucess(client);
     } else {
         $('#pwd-popup .popup-card').toggleClass("wrong");
         setTimeout(() => $('#pwd-popup .popup-card').toggleClass("wrong"), 300);
@@ -97,8 +96,8 @@ function populateClientGallery(clients) {
 }
 
 
-function setupPwdPopup(onsubmitFn) {
+function setupPwdPopup(onSucess) {
     $('#pwd-popup .backcatcher').click(togglePwdPopup);
     $('#pwd-popup .close-icon').click(togglePwdPopup);
-    $('#pwd-form').submit(onsubmitFn);
+    $('#pwd-form').submit(() => validatePwd(onSucess));
 }

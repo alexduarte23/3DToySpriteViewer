@@ -6,7 +6,10 @@ $(window).ready(function () {    $.getJSON("../../data/clients.json", function (
         g_clients = clients;
     });
 
-    setupPwdPopup(validatePwd);
+    setupPwdPopup((client) => {
+        togglePwdPopup();
+        window.location.href = `../?id=${client.id}&pwd=${client.password}`;
+    });
 
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),

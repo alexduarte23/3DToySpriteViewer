@@ -1,4 +1,20 @@
 
+var g_clients = [];
+
+function loadClientProducts(client) {
+    $.getJSON("../data/products.json", function (products) {
+        var clientProducts = client.products.map((pid) => {
+            for (const p of products)
+                if (p.id == pid) return p;
+            return null;
+        });
+        clientProducts = clientProducts.filter((p) => p !== null)
+
+        $('#content-title').text('Projetos ' + client.name);
+
+        populateProductGallery(clientProducts);
+    });
+}
 
 
 $(window).ready(function () {
@@ -11,24 +27,30 @@ $(window).ready(function () {
         window.location.href = './menu';
 
     $.getJSON("../data/clients.json", function (clients) {
-        var filteredClients = clients.filter((client) => client.id === params.id);
-        if (filteredClients.length < 1)
+        var idx = -1;
+        for (var i = 0; i < clients.length; i++) {
+            if (clients[i].id == params.id) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx == -1)
             window.location.href = './menu';
         
-        var client = filteredClients[0];
+        var client = clients[idx];
 
-        $.getJSON("../data/products.json", function (products) {
-            var clientProducts = client.products.map((pid) => {
-                for (const p of products)
-                    if (p.id == pid) return p;
-                return null;
+        if (params.pwd === null || params.pwd !== client.password) {
+            $('#pwd').data('clientIdx', idx);
+            g_clients = clients;
+            setupPwdPopup((client) => {
+                togglePwdPopup();
+                loadClientProducts(client);
             });
-            clientProducts = clientProducts.filter((p) => p !== null)
+            togglePwdPopup();
+        } else {
+            loadClientProducts(client);
+        }
 
-            $('#content-title').text('Projetos ' + client.name);
-
-            populateProductGallery(clientProducts);
-        });
     });
 
 });
