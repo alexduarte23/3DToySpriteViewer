@@ -1,6 +1,6 @@
 @font-face {
     font-family: "AkrobatWeb";
-    src: url("./Akrobat-Regular.ttf") format("truetype");
+    src: url("../media/Akrobat-Regular.ttf") format("truetype");
     font-weight: 500;
     font-style: normal;
 }
@@ -39,10 +39,11 @@ body {
 }
 
 #title {
-    margin: 20px auto;
+    margin: 25px auto;
     font-weight: bold;
     font-size: 3.0rem;
     letter-spacing: 17px;
+    text-transform: uppercase;
     text-align: center;
     margin-right: -17px; /*remove spacing from last char*/
 }
@@ -101,7 +102,7 @@ hr {
 }
 
 /* To look better when an overlay popup is active */
-.dark #header::before {
+/*.dark #header::before {
     content: '';
     display: block;
     z-index: -1;
@@ -111,7 +112,7 @@ hr {
     bottom: 0;
     left: -50px;
     right: -50px;
-}
+}*/
 
 
 
@@ -135,9 +136,17 @@ hr {
 
 /************* Image Card Gallery *************/
 
+#content-title {
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.6rem;
+    margin-top: 75px;
+}
+
 .gallery {
     margin: 0 auto;
-    margin-top: 150px;
+    margin-top: 75px;
     padding: 30px;
     justify-content: center;
     align-items: center;
@@ -152,11 +161,11 @@ hr {
 }
 
 #product-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(max-content, 450px));
+    grid-template-columns: repeat(auto-fit, minmax(max-content, 450px));
 }
 
 #client-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(max-content, 300px));
+    grid-template-columns: repeat(auto-fit, minmax(max-content, 300px));
 }
 
 .gallery-item {
@@ -191,6 +200,7 @@ hr {
     font-size: 26px;
     font-weight: bold;
     text-align: center;
+    text-transform: capitalize;
     text-shadow: 0px 0px 10px black, 0px 0px 20px black;
     position: absolute;
     top: 50%;

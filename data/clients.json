@@ -1,0 +1,16 @@
+[
+	{
+		"id": "test",
+		"name": "test",
+		"password": "sofg",
+		"logo": "asdf.png",
+		"products": ["a", "g", "h"]
+	},
+	{
+		"id": "test2",
+		"name": "test",
+		"password": "dasi",
+		"logo": "asdf.png",
+		"products": ["b"]
+	}
+]
