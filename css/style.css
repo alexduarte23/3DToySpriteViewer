@@ -126,10 +126,10 @@ hr {
         letter-spacing: 12px;
     }
 
-    #section-button {
+    .section-button {
         margin: 10px;
         padding: 3px 10px;
-        font-size: 1.0rem;
+        font-size: 1.1rem;
     }
 }
 
@@ -281,11 +281,8 @@ hr {
 
 .popup-card {
     position: absolute;
-    padding: 50px;
     top: 50%;
     left: 50%;
-    width: 400px;
-    max-width: 90%;
     transform: translate(-50%, -50%);
     background: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -293,10 +290,13 @@ hr {
 
 .close-icon {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 15px;
+    top: 0;
+    right: 0;
+    width: 17px;
+    background: white;
     cursor: pointer;
+    padding: 12px;
+    box-sizing: initial;
 }
 
 .popup-title {
@@ -305,10 +305,17 @@ hr {
     font-size: 22px;
     font-weight: bold;
     color: black;
+    text-transform: capitalize;
 }
 
 
 /* Password Popup */
+
+.pwd-card {
+    padding: 50px;
+    width: 400px;
+    max-width: 90%;
+}
 
 label {
     display: block;
@@ -363,4 +370,45 @@ input[type=submit]:hover {
     25% { transform: translate(calc(-50% + 10px), -50%); }
     75% { transform: translate(calc(-50% - 10px), -50%); }
     100% { transform: translate(-50%, -50%); }
+}
+
+/* Product Popup */
+
+.product-card {
+    /*display: flex;*/
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.product-viewer {
+    overflow: hidden;
+    width: max-content;
+}
+
+.product-viewer img {
+    display: block;
+    max-width: calc(90vw - 300px);
+    max-height: 90vh;
+}
+
+.product-card-info {
+    width: 300px;
+    padding: 50px 20px;
+}
+
+@media (max-width: 1000px) {
+    .product-card {
+        /*display: block;*/
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+    }
+
+    .product-viewer img {
+        max-width: 90vw;
+    }
+
+    .product-card-info {
+        width: 100%;
+        padding: 15px;
+    }
 }

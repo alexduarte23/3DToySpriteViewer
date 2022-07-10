@@ -1,4 +1,7 @@
 
+var g_products = [];
+var g_client = null;
+var g_product_url = './product';
 
 $(window).ready(function () {
     $.getJSON("./data/products.json", function (products) {
@@ -6,13 +9,11 @@ $(window).ready(function () {
             var clientProducts = clients.flatMap((client) => client.products);
             var generalProducts = products.filter((p) => !clientProducts.includes(p.id));
 
+            g_products = generalProducts;
             populateProductGallery(generalProducts);
         });
     });
 
-    const params = new Proxy(new URLSearchParams(window.location.search), {
-        get: (searchParams, prop) => searchParams.get(prop),
-    });
-    console.log(parseInt(params.tag))
+    setupProductPopup();
 
 });

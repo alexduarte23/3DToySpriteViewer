@@ -11,9 +11,4 @@ $(window).ready(function () {    $.getJSON("../../data/clients.json", function (
         window.location.href = `../?id=${client.id}&pwd=${client.password}`;
     });
 
-    const params = new Proxy(new URLSearchParams(window.location.search), {
-        get: (searchParams, prop) => searchParams.get(prop),
-    });
-    console.log(parseInt(params.tag))
-
 });

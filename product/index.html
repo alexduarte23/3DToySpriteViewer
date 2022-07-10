@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>L2 Viewer</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style type="text/css">
+        body { -ms-touch-action: none; }
+    </style>
+    <style type="text/css">
+
+        .logo {
+            opacity: 0%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: calc(min(80vh, (min(50vw, 200px))));
+            filter: invert(1);
+            transform: translate(-50%, -50%);
+        }
+
+        #viewerDiv {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0%;
+        }
+
+        .logo-intro {
+            animation: logoPres 2s linear 0.5s 1 normal forwards;
+        }
+
+        .viewer-intro {
+            animation: showup 1s ease 2.5s 1 normal forwards;
+        }
+
+        @keyframes showup {
+            0% {
+                opacity: 0%;
+            }
+            100% {
+                opacity: 100%;
+            }
+        }
+
+        @keyframes logoPres {
+            0% {
+                opacity: 0%;
+            }
+            30% {
+                opacity: 100%;
+            }
+            60% {
+                opacity: 100%;
+            }
+            100% {
+                opacity: 0%;
+            }
+        }
+
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <img class="logo" src="../media/logo_small.png" style="filter: invert(1);">
+    <div id="viewerDiv"></div>
+
+    <!-- Password Request Popup -->
+    <div id="pwd-popup" class="full-overlay hidden">
+        <div class="backcatcher"></div>
+        <div class="popup-card pwd-card">
+            <img src="../../media/close_x.svg" class="close-icon">
+            <p class="popup-title">Acesso Restrito</p>
+            <form id="pwd-form">
+                <label for="pwd">Senha</label>
+                <input type="password" id="pwd" name="pwd">
+                <input type="submit" value="Entrar">
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/L2Viewer.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
+    <script type="text/javascript" src="../js/product_script.js"></script>
+
+</body>
+</html>

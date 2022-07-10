@@ -35,6 +35,15 @@ function togglePwdPopup() {
     }
 }
 
+function showProductPopup() {
+    // fill popup
+    var product = g_products[$(this).data('idx')];
+    $('#product-popup .popup-title').text(product.name);
+    $('#product-popup .popup-text').text(product.description);
+    togglePopup($('#product-popup'));
+}
+
+
 function validatePwd(onSucess) {
     var client = g_clients[$('#pwd').data('clientIdx')];
     if ($('#pwd').val() == client.password) {
@@ -52,6 +61,15 @@ function openPage() {
     window.open('http://www.google.com','new_window')
 }
 
+function openProductPage() {
+    var product = g_products[$(this).data('idx')];
+    console.log(product)
+    if (g_client == null)
+        window.open(g_product_url + '?id=' + product.id, 'new_window')
+    else
+        window.open(g_product_url + '?id=' + product.id + '&pwd=' + g_client.password, 'new_window')
+}
+
 
 function populateProductGallery(products) {
     /*<div class="gallery-item">
@@ -64,7 +82,7 @@ function populateProductGallery(products) {
     for (var i = 0; i < products.length; i++) {
         var p = products[i];
         img_num = Math.floor(Math.random() * 500 + 500);
-        $('<div>', {'class': 'gallery-item', click: openPage})
+        $('<div>', {'class': 'gallery-item', click: /*showProductPopup*/ openProductPage})
             .append($('<img>', {'class': 'item-image', src: `https://picsum.photos/${img_num}`}))
             .append($('<div>', {'class': 'item-overlay'})
                 .append($('<p>', {'class': 'item-title', text: p.name}))
@@ -100,4 +118,9 @@ function setupPwdPopup(onSucess) {
     $('#pwd-popup .backcatcher').click(togglePwdPopup);
     $('#pwd-popup .close-icon').click(togglePwdPopup);
     $('#pwd-form').submit(() => validatePwd(onSucess));
+}
+
+function setupProductPopup() {
+    $('#product-popup .backcatcher').click(() => togglePopup($('#product-popup')));
+    $('#product-popup .close-icon').click(() => togglePopup($('#product-popup')));
 }

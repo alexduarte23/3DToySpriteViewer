@@ -1,5 +1,8 @@
 
 var g_clients = [];
+var g_products = [];
+var g_client = null;
+var g_product_url = '../product';
 
 function loadClientProducts(client) {
     $.getJSON("../data/products.json", function (products) {
@@ -9,6 +12,7 @@ function loadClientProducts(client) {
             return null;
         });
         clientProducts = clientProducts.filter((p) => p !== null)
+        g_products = clientProducts;
 
         $('#content-title').text('Projetos ' + client.name);
 
@@ -22,7 +26,6 @@ $(window).ready(function () {
         get: (searchParams, prop) => searchParams.get(prop),
     });
 
-    console.log(params.id)
     if (params.id === null)
         window.location.href = './menu';
 
@@ -38,6 +41,7 @@ $(window).ready(function () {
             window.location.href = './menu';
         
         var client = clients[idx];
+        g_client = client;
 
         if (params.pwd === null || params.pwd !== client.password) {
             $('#pwd').data('clientIdx', idx);
