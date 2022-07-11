@@ -11,7 +11,7 @@
 		"id": "b",
 		"name": "lorem ipsum",
 		"description": "This is a test",
-		"tags": ["misc"],
+		"tags": ["Lorem Ipsum", "misc"],
 		"folder": "wine_box",
 		"thumbnail": "0_0.jpg"
 	},
@@ -19,7 +19,7 @@
 		"id": "c",
 		"name": "solar dolores",
 		"description": "This is a test",
-		"tags": ["misc"],
+		"tags": ["Lorem Ipsum"],
 		"folder": "wine_box",
 		"thumbnail": "0_0.jpg"
 	},
@@ -27,7 +27,7 @@
 		"id": "d",
 		"name": "ola",
 		"description": "This is a test",
-		"tags": ["misc"],
+		"tags": ["Lorem Ipsum"],
 		"folder": "wine_box",
 		"thumbnail": "0_0.jpg"
 	},
@@ -51,7 +51,7 @@
 		"id": "g",
 		"name": "ola",
 		"description": "This is a test",
-		"tags": ["misc"],
+		"tags": ["Lorem Ipsum"],
 		"folder": "wine_box",
 		"thumbnail": "0_0.jpg"
 	},

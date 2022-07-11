@@ -15,8 +15,11 @@ function loadClientProducts(client) {
         g_products = clientProducts;
 
         $('#content-title').text('Projetos ' + client.name);
+        $('#brand-logo').attr('src', 'https://picsum.photos/365');
 
         populateProductGallery(clientProducts);
+
+        setupTags(clientProducts);
     });
 }
 

@@ -11,9 +11,18 @@ $(window).ready(function () {
 
             g_products = generalProducts;
             populateProductGallery(generalProducts);
+
+            setupTags(generalProducts);
         });
     });
 
     setupProductPopup();
+
+    /*var offsetLeft = $('.gallery-item').eq(0).offset().left - $('.gallery').eq(0).offset().left
+    $('#tag-bar').css('margin-left', offsetLeft);
+    $(window).resize(() => {
+        offsetLeft = $('.gallery-item').eq(0).offset().left - $('.gallery').eq(0).offset().left
+        $('#tag-bar').css('margin-left', offsetLeft);
+    })*/
 
 });
