@@ -60,4 +60,6 @@ $(window).ready(function () {
 
     });
 
+    setupProductPopup();
+
 });
