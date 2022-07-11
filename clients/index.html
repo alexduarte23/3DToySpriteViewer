@@ -35,7 +35,7 @@
     </div>
 
     <div id="content">
-        <h2 id="content-title">Quem és?</h2>
+        <h2 id="content-title"></h2>
         <div class="brand-logo-wrapper">
             <img id="brand-logo" src="">
         </div>
@@ -52,13 +52,28 @@
     <div id="pwd-popup"  class="full-overlay hidden">
         <div class="backcatcher"></div>
         <div class="popup-card pwd-card">
-            <img src="../../media/close_x.svg" class="close-icon">
+            <img src="../media/close_x.svg" class="close-icon">
             <p class="popup-title">Acesso Restrito</p>
             <form id="pwd-form">
                 <label for="pwd">Senha</label>
                 <input type="password" id="pwd" name="pwd">
                 <input type="submit" value="Entrar">
             </form>
+        </div>
+    </div>
+
+    <!-- Product Preview Popup -->
+    <div id="product-popup"  class="full-overlay hidden">
+        <div class="backcatcher"></div>
+        <div class="popup-card product-card">
+            <img src="../media/close_x.svg" class="close-icon">
+            <div class="product-viewer">
+                <img src="../data/wine_box/0_0.jpg">
+            </div>
+            <div class="product-card-info">
+                <p class="popup-title">Acesso Restrito</p>
+                <p class="popup-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
         </div>
     </div>
 
