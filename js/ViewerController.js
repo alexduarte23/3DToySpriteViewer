@@ -318,7 +318,7 @@ class ViewerController {
 	static doubleTouch(t1, t2) {
 		var x = (t1.pageX + t2.pageX) / 2;
 		var y = (t1.pageY + t2.pageY) / 2;
-		var d = Math.sqrt(x*x + y*y);
+		var d = Math.sqrt((t1.pageX-t2.pageX)*(t1.pageX-t2.pageX) + (t1.pageY-t2.pageY)*(t1.pageY-t2.pageY));
 		return {x: x, y: y, d: d};
 	}
 
