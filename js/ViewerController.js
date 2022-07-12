@@ -336,7 +336,7 @@ class ViewerController {
 		this.inPan = false;
 		//this.imgElement.css('cursor', 'grab');
 		
-		this.viewerDiv.off('touchmove');
+		//this.viewerDiv.off('touchmove');
 	}
 
 	registerPanZoom(x, y, d) {
