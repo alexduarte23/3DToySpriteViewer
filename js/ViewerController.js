@@ -340,7 +340,7 @@ class ViewerController {
 	}
 
 	registerPanZoom(x, y, d) {
-		$('#product-popup .popup-title').text(`${this.inPan} ${x} ${y} ${d}`)
+		$('#product-popup .popup-title').text(`${this.inPan} ${parseInt(x)} ${parseInt(y)} ${parseInt(d)}`)
 	}
 
 }
