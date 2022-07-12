@@ -68,6 +68,8 @@ class ViewerController {
 	bindViewerEvents() {
 		this.viewerDiv.data('controller', this);
 		
+		// MOUSE SUPPORT
+
 		this.viewerDiv.mousedown(function (e) {
 			if (e.which === 1) {
 				e.preventDefault();
@@ -100,25 +102,8 @@ class ViewerController {
 			$(this).data('controller').zoom(e.pageX, e.pageY, e.originalEvent.wheelDelta);
 		});
 
-		/*this.viewerDiv.on('touchstart', function (e) {
-			e.preventDefault();
-			$('#product-popup .popup-title').text(`start ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
-		});
-
-		this.viewerDiv.on('touchend', function (e) {
-			e.preventDefault();
-			$('#product-popup .popup-title').text(`end ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
-		});
-
-		this.viewerDiv.on('touchcancel', function (e) {
-			e.preventDefault();
-			$('#product-popup .popup-title').text(`cancel ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
-		});
-
-		this.viewerDiv.on('touchmove', function (e) {
-			e.preventDefault();
-			$('#product-popup .popup-text').text(`move ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
-		});*/
+		
+		// TOUCH SUPPORT
 
 		this.viewerDiv.on('touchstart', function (e) {
 			$(this).data('controller').resolveTouchState(e);
@@ -145,6 +130,7 @@ class ViewerController {
 			}
 		});
 
+		// GENERAL
 
 		this.viewerDiv.contextmenu(function (e) { e.preventDefault() });
 
@@ -154,6 +140,7 @@ class ViewerController {
 			$(this).data('controller').newViewLoaded();
 		});
 	}
+
 
 	// ROTATION (frame change)
 
@@ -255,6 +242,7 @@ class ViewerController {
 		this.imgElement.css('transform', `matrix(${this.currZoom},0,0,${this.currZoom},${this.currTrans.x},${this.currTrans.y})`)
 	}
 
+
 	// PAN (when zoomed)
 
 	startPan(x, y) {
@@ -294,10 +282,10 @@ class ViewerController {
 		this.setTransform();
 	}
 
+
 	// TOUCH specific
 
 	resolveTouchState(e) {
-		$('#product-popup .popup-text').text(`++${e.touches.length}`) // control
 		var touches = e.touches.length;
 		if (touches > 2) touches = 0;
 
@@ -337,7 +325,6 @@ class ViewerController {
 		this.lastPan = {x: x, y: y};
 		this.lastD = d;
 		this.inPan = true;
-		//this.imgElement.css('cursor', 'move');
 	}
 
 	endPanZoom() {
@@ -347,8 +334,7 @@ class ViewerController {
 	}
 
 	registerPanZoom(x, y, d) {
-		//$('#product-popup .popup-title').text(`${this.inPan} ${parseInt(x)} ${parseInt(y)} ${parseInt(d)}`)
-
+		// two finger drag translate
 		var dx = x - this.lastPan.x;
 		var dy = y - this.lastPan.y;
 		this.lastPan = {x: x, y: y};
@@ -359,8 +345,7 @@ class ViewerController {
 		this.currTrans.x = this.clamp(this.currTrans.x, this.imgW*(1-this.currZoom), 0);
 		this.currTrans.y = this.clamp(this.currTrans.y, this.imgH*(1-this.currZoom), 0);
 
-		$('#product-popup .popup-title').text(`${this.inPan} ${parseInt(x)} ${parseInt(y)} ${d - this.lastD}`)
-
+		// pinch zoom
 		this.zoom(x, y, (d - this.lastD));
 		this.lastD = d;
 		
