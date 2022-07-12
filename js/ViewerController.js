@@ -119,25 +119,24 @@ class ViewerController {
 
 		this.viewerDiv.on('touchstart', function (e) {
 			$(this).data('controller').resolveTouchState(e);
-			$('#product-popup .popup-title').text(`start ${$(this).data('controller').touches}`)
 		});
 
 		this.viewerDiv.on('touchend', function (e) {
 			$(this).data('controller').resolveTouchState(e);
-			$('#product-popup .popup-title').text(`end ${$(this).data('controller').touches}`)
 		});
 
 		this.viewerDiv.on('touchcancel', function (e) {
 			$(this).data('controller').resolveTouchState(e);
-			$('#product-popup .popup-title').text(`cancel ${$(this).data('controller').touches}`)
 		});
 
 		this.viewerDiv.on('touchmove', function (e) {
 			$(this).data('controller').resolveTouchState(e);
 			$('#product-popup .popup-title').text(`move ${$(this).data('controller').touches}`)
 			if (e.touches.length === 1) {
+				e.preventDefault();
 				$(this).data('controller').registerRotMove(e.touches[0].pageX, e.touches[0].pageY);
 			} else if (e.touches.length === 2) {
+				e.preventDefault();
 				$(this).data('controller').registerPanZoom(0,0,0);
 			}
 		});
