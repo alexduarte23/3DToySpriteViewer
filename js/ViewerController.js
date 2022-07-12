@@ -29,6 +29,11 @@ class ViewerController {
 
 		this.setTransform();
 
+		this.touches = 0;
+		this.endRot();
+		this.endPan();
+		this.endPanZoom();
+
 		this.imgElement.on('load', function () {
 			var viewerDiv = $(this).parents(0);
 			$(this).parents(0).data('controller').newViewLoaded();
@@ -92,7 +97,7 @@ class ViewerController {
 			$(this).data('controller').zoom(e.pageX, e.pageY, e.originalEvent.wheelDelta);
 		});
 
-		this.viewerDiv.on('touchstart', function (e) {
+		/*this.viewerDiv.on('touchstart', function (e) {
 			e.preventDefault();
 			$('#product-popup .popup-title').text(`start ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
 		});
@@ -110,29 +115,32 @@ class ViewerController {
 		this.viewerDiv.on('touchmove', function (e) {
 			e.preventDefault();
 			$('#product-popup .popup-text').text(`move ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
-		});
+		});*/
 
-		/*this.viewerDiv.on('touchstart', function (e) {
-			if (e.touches.length !== 1) return;
-			e.preventDefault();
-			
-			$(this).data('controller').startRot(e.pageX, e.pageY);
+		this.viewerDiv.on('touchstart', function (e) {
+			$(this).data('controller').resolveTouchState(e.touches.length);
+			console.log($(this).data('controller').touches)
 		});
 
 		this.viewerDiv.on('touchend', function (e) {
-			$(this).data('controller').endRot(e.pageX, e.pageY);
-			$(this).off('mousemove');
+			$(this).data('controller').resolveTouchState(e.touches.length);
+			console.log($(this).data('controller').touches)
 		});
 
 		this.viewerDiv.on('touchcancel', function (e) {
-			$(this).data('controller').endRot(e.pageX, e.pageY);
-			$(this).off('mousemove');
+			$(this).data('controller').resolveTouchState(e.touches.length);
+			console.log($(this).data('controller').touches)
 		});
 
 		this.viewerDiv.on('touchmove', function (e) {
-			$(this).data('controller').endRot(e.pageX, e.pageY);
-			$(this).off('mousemove');
-		});*/
+			$(this).data('controller').resolveTouchState(e.touches.length);
+			console.log($(this).data('controller').touches)
+			if (e.touches.length === 1) {
+				$(this).data('controller').registerRotMove(e.pageX, e.pageY);
+			} else if (e.touches.length === 2) {
+				$(this).data('controller').registerPanZoom(e.pageX, e.pageY);
+			}
+		});
 
 		this.viewerDiv.contextmenu(function (e) { e.preventDefault() });
 	}
@@ -140,10 +148,9 @@ class ViewerController {
 	// ROTATION (frame change)
 
 	startRot(x, y) {
-		if (!this.hasView || this.inPan) return;
+		if (!this.hasView || this.inRot || this.inPan) return;
 
-		this.start = {x: x, y: y};
-		this.last = {x: x, y: y};
+		this.rotStart = {x: x, y: y};
 		this.startFrame = this.currFrame;
 		this.inRot = true;
 		this.imgElement.css('cursor', 'grabbing');
@@ -154,7 +161,7 @@ class ViewerController {
 	}
 
 	endRot(x, y) {
-		if (!this.hasView || this.inPan) return;
+		if (!this.hasView || !this.inRot) return;
 
 		this.inRot = false;
 		this.imgElement.css('cursor', 'grab');
@@ -163,10 +170,9 @@ class ViewerController {
 	}
 
 	registerRotMove(x, y) {
-		if (!this.hasView || !this.inRot || this.inPan) return;
+		if (!this.hasView || !this.inRot) return;
 
-		this.last = {x: x, y: y};
-		var dx = x - this.start.x;
+		var dx = x - this.rotStart.x;
 		var dframe = -Math.floor(dx / this.threshold);
 		var newFrame = this.mod(this.startFrame + dframe, this.count);
 		if (newFrame != this.currFrame) {
@@ -242,9 +248,9 @@ class ViewerController {
 	// PAN (when zoomed)
 
 	startPan(x, y) {
-		if (!this.hasView || this.inRot) return;
+		if (!this.hasView || this.inPan || this.inRot) return;
 
-		this.last = {x: x, y: y};
+		this.lastPan = {x: x, y: y};
 		this.inPan = true;
 		this.imgElement.css('cursor', 'move');
 		
@@ -254,7 +260,7 @@ class ViewerController {
 	}
 
 	endPan(x, y) {
-		if (!this.hasView || this.inRot) return;
+		if (!this.hasView || !this.inPan) return;
 
 		this.inPan = false;
 		this.imgElement.css('cursor', 'grab');
@@ -263,11 +269,11 @@ class ViewerController {
 	}
 
 	registerPanMove(x, y) {
-		if (!this.hasView || !this.inPan || this.inRot) return;
+		if (!this.hasView || !this.inPan) return;
 
-		var dx = x - this.last.x;
-		var dy = y - this.last.y;
-		this.last = {x: x, y: y};
+		var dx = x - this.lastPan.x;
+		var dy = y - this.lastPan.y;
+		this.lastPan = {x: x, y: y};
 		this.currTrans.x += dx;
 		this.currTrans.y += dy;
 		
@@ -276,6 +282,43 @@ class ViewerController {
 		this.currTrans.y = this.clamp(this.currTrans.y, this.imgH*(1-this.currZoom), 0);
 		
 		this.setTransform();
+	}
+
+	// TOUCH specific
+
+	resolveTouchState(touches) {
+		touches = Math.max(touches, 2);
+		if (this.touches === touches) return;
+
+		if (touches === 0 && this.touches === 1) {
+			this.endRot();
+		} else if (touches === 0 && this.touches === 2) {
+			this.endPanZoom();
+		} else if (touches === 1 && this.touches === 0) {
+			this.startRot();
+		} else if (touches === 1 && this.touches === 2) {
+			this.endPanZoom();
+			this.startRot();
+		} else if (touches === 2 && this.touches === 0) {
+			this.startPanZoom();
+		} else if (touches === 2 && this.touches === 1) {
+			this.endRot();
+			this.startPanZoom();
+		}
+
+		this.touches = touches;
+	}
+
+	startPanZoom(x, y) {
+
+	}
+
+	endPanZoom(x, y) {
+		
+	}
+
+	registerPanZoom(x, y) {
+		
 	}
 
 }
