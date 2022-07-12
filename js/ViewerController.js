@@ -92,10 +92,27 @@ class ViewerController {
 			$(this).data('controller').zoom(e.pageX, e.pageY, e.originalEvent.wheelDelta);
 		});
 
-		/*this.viewerDiv.on('touchstart', function (e) {
-			console.log(e);
-		});
 		this.viewerDiv.on('touchstart', function (e) {
+			e.preventDefault();
+			$('#product-popup .popup-title').text(`start ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
+		});
+
+		this.viewerDiv.on('touchend', function (e) {
+			e.preventDefault();
+			$('#product-popup .popup-title').text(`end ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
+		});
+
+		this.viewerDiv.on('touchcancel', function (e) {
+			e.preventDefault();
+			$('#product-popup .popup-title').text(`cancel ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
+		});
+
+		this.viewerDiv.on('touchmove', function (e) {
+			e.preventDefault();
+			$('#product-popup .popup-title').text(`move ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
+		});
+
+		/*this.viewerDiv.on('touchstart', function (e) {
 			if (e.touches.length !== 1) return;
 			e.preventDefault();
 			
