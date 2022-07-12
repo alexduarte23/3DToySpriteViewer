@@ -297,7 +297,7 @@ class ViewerController {
 	// TOUCH specific
 
 	resolveTouchState(e) {
-		$('#product-popup .popup-text').text(`--${e.touches.length}`) // control
+		$('#product-popup .popup-text').text(`----${e.touches.length}`) // control
 		var touches = e.touches.length;
 		if (touches > 2) touches = 0;
 
@@ -347,19 +347,21 @@ class ViewerController {
 	}
 
 	registerPanZoom(x, y, d) {
-		$('#product-popup .popup-title').text(`${this.inPan} ${parseInt(x)} ${parseInt(y)} ${parseInt(d)}`)
+		//$('#product-popup .popup-title').text(`${this.inPan} ${parseInt(x)} ${parseInt(y)} ${parseInt(d)}`)
 
-		var dx = x - this.lastPan.x;
-		var dy = y - this.lastPan.y;
-		this.lastPan = {x: x, y: y};
-		this.currTrans.x += dx;
-		this.currTrans.y += dy;
-		
-		// keep in bounds
-		this.currTrans.x = this.clamp(this.currTrans.x, this.imgW*(1-this.currZoom), 0);
-		this.currTrans.y = this.clamp(this.currTrans.y, this.imgH*(1-this.currZoom), 0);
+		//var dx = x - this.lastPan.x;
+		//var dy = y - this.lastPan.y;
+		//this.lastPan = {x: x, y: y};
+		//this.currTrans.x += dx;
+		//this.currTrans.y += dy;
+		//
+		//// keep in bounds
+		//this.currTrans.x = this.clamp(this.currTrans.x, this.imgW*(1-this.currZoom), 0);
+		//this.currTrans.y = this.clamp(this.currTrans.y, this.imgH*(1-this.currZoom), 0);
 
-		this.zoom(x, y, (d - lastD));
+		$('#product-popup .popup-title').text(`${this.inPan} ${parseInt(x)} ${parseInt(y)} ${d - this.lastD}`)
+
+		this.zoom(x, y, (d - this.lastD));
 		this.lastD = d;
 		
 		this.setTransform();
