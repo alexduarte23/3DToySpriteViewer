@@ -131,15 +131,17 @@ class ViewerController {
 
 		this.viewerDiv.on('touchmove', function (e) {
 			$(this).data('controller').resolveTouchState(e);
-			$('#product-popup .popup-title').text(`move ${$(this).data('controller').touches}`)
+			//$('#product-popup .popup-title').text(`move ${$(this).data('controller').touches}`)
 			if (e.touches.length === 1) {
 				e.preventDefault();
 				$(this).data('controller').registerRotMove(e.touches[0].pageX, e.touches[0].pageY);
 			} else if (e.touches.length === 2) {
 				e.preventDefault();
-				$(this).data('controller').registerPanZoom(0,0,0);
+				var doubleT = ViewerController.doubleTouch(e.touches[0], e.touches[1]);
+				$(this).data('controller').registerPanZoom(doubleT.x, doubleT.y, doubleT.d);
 			}
 		});
+
 
 		this.viewerDiv.contextmenu(function (e) { e.preventDefault() });
 	}
@@ -286,38 +288,59 @@ class ViewerController {
 	// TOUCH specific
 
 	resolveTouchState(e) {
-		var touches = Math.min(e.touches.length, 2);
+		$('#product-popup .popup-text').text(`${e.touches.length}`) // control
+		var touches = e.touches.length;
+		if (touches > 2) touches = 0;
+
 		if (this.touches === touches) return;
 
 		if (touches === 0 && this.touches === 1) {
 			this.endRot(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
 		} else if (touches === 0 && this.touches === 2) {
-			this.endPanZoom(0, 0, 0);
+			this.endPanZoom();
 		} else if (touches === 1 && this.touches === 0) {
 			this.startRot(e.touches[0].pageX, e.touches[0].pageY);
 		} else if (touches === 1 && this.touches === 2) {
-			this.endPanZoom(0, 0, 0);
+			this.endPanZoom();
 			this.startRot(e.touches[0].pageX, e.touches[0].pageY);
 		} else if (touches === 2 && this.touches === 0) {
-			this.startPanZoom(0, 0, 0);
+			var doubleT = ViewerController.doubleTouch(e.touches[0], e.touches[1]);
+			this.startPanZoom(doubleT.x, doubleT.y, doubleT.d);
 		} else if (touches === 2 && this.touches === 1) {
+			var doubleT = ViewerController.doubleTouch(e.touches[0], e.touches[1]);
 			this.endRot(e.touches[0].pageX, e.touches[0].pageY);
-			this.startPanZoom(0, 0, 0);
+			this.startPanZoom(doubleT.x, doubleT.y, doubleT.d);
 		}
 
 		this.touches = touches;
 	}
 
-	startPanZoom(x, y, d) {
-
+	static doubleTouch(t1, t2) {
+		var x = (t1.pageX + t2.pageX) / 2;
+		var y = (t1.pageY + t2.pageY) / 2;
+		var d = Math.sqrt(x*x + y*y);
+		return {x: x, y: y, d: d};
 	}
 
-	endPanZoom(x, y, d) {
+	startPanZoom(x, y, d) {
+		if (!this.hasView || this.inPan || this.inRot) return;
+
+		//this.lastPan = {x: x, y: y};
+		this.inPan = true;
+		//this.imgElement.css('cursor', 'move');
+	}
+
+	endPanZoom() {
+		if (!this.hasView || !this.inPan) return;
+
+		this.inPan = false;
+		//this.imgElement.css('cursor', 'grab');
 		
+		this.viewerDiv.off('touchmove');
 	}
 
 	registerPanZoom(x, y, d) {
-		
+		$('#product-popup .popup-title').text(`${this.inPan} ${x} ${y} ${d}`)
 	}
 
 }
