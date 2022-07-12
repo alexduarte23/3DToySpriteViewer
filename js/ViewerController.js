@@ -118,27 +118,27 @@ class ViewerController {
 		});*/
 
 		this.viewerDiv.on('touchstart', function (e) {
-			$(this).data('controller').resolveTouchState(e.touches.length);
-			console.log($(this).data('controller').touches)
+			$(this).data('controller').resolveTouchState(e);
+			$('#product-popup .popup-title').text(`start ${$(this).data('controller').touches}`)
 		});
 
 		this.viewerDiv.on('touchend', function (e) {
-			$(this).data('controller').resolveTouchState(e.touches.length);
-			console.log($(this).data('controller').touches)
+			$(this).data('controller').resolveTouchState(e);
+			$('#product-popup .popup-title').text(`end ${$(this).data('controller').touches}`)
 		});
 
 		this.viewerDiv.on('touchcancel', function (e) {
-			$(this).data('controller').resolveTouchState(e.touches.length);
-			console.log($(this).data('controller').touches)
+			$(this).data('controller').resolveTouchState(e);
+			$('#product-popup .popup-title').text(`cancel ${$(this).data('controller').touches}`)
 		});
 
 		this.viewerDiv.on('touchmove', function (e) {
-			$(this).data('controller').resolveTouchState(e.touches.length);
-			console.log($(this).data('controller').touches)
+			$(this).data('controller').resolveTouchState(e);
+			$('#product-popup .popup-title').text(`move ${$(this).data('controller').touches}`)
 			if (e.touches.length === 1) {
-				$(this).data('controller').registerRotMove(e.pageX, e.pageY);
+				$(this).data('controller').registerRotMove(e.touches[0].pageX, e.touches[0].pageY);
 			} else if (e.touches.length === 2) {
-				$(this).data('controller').registerPanZoom(e.pageX, e.pageY);
+				$(this).data('controller').registerPanZoom(0,0,0);
 			}
 		});
 
@@ -286,38 +286,38 @@ class ViewerController {
 
 	// TOUCH specific
 
-	resolveTouchState(touches) {
-		touches = Math.max(touches, 2);
+	resolveTouchState(e) {
+		var touches = Math.min(e.touches.length, 2);
 		if (this.touches === touches) return;
 
 		if (touches === 0 && this.touches === 1) {
-			this.endRot();
+			this.endRot(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
 		} else if (touches === 0 && this.touches === 2) {
-			this.endPanZoom();
+			this.endPanZoom(0, 0, 0);
 		} else if (touches === 1 && this.touches === 0) {
-			this.startRot();
+			this.startRot(e.touches[0].pageX, e.touches[0].pageY);
 		} else if (touches === 1 && this.touches === 2) {
-			this.endPanZoom();
-			this.startRot();
+			this.endPanZoom(0, 0, 0);
+			this.startRot(e.touches[0].pageX, e.touches[0].pageY);
 		} else if (touches === 2 && this.touches === 0) {
-			this.startPanZoom();
+			this.startPanZoom(0, 0, 0);
 		} else if (touches === 2 && this.touches === 1) {
-			this.endRot();
-			this.startPanZoom();
+			this.endRot(e.touches[0].pageX, e.touches[0].pageY);
+			this.startPanZoom(0, 0, 0);
 		}
 
 		this.touches = touches;
 	}
 
-	startPanZoom(x, y) {
+	startPanZoom(x, y, d) {
 
 	}
 
-	endPanZoom(x, y) {
+	endPanZoom(x, y, d) {
 		
 	}
 
-	registerPanZoom(x, y) {
+	registerPanZoom(x, y, d) {
 		
 	}
 
