@@ -109,7 +109,7 @@ class ViewerController {
 
 		this.viewerDiv.on('touchmove', function (e) {
 			e.preventDefault();
-			$('#product-popup .popup-title').text(`move ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
+			$('#product-popup .popup-text').text(`move ${e.touches.length} ${e.targetTouches.length} ${e.changedTouches.length}`)
 		});
 
 		/*this.viewerDiv.on('touchstart', function (e) {
