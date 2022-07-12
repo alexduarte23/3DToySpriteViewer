@@ -15,6 +15,7 @@ class ViewerController {
 		this.inRot = false;
 		this.inPan = false;
 		this.bindViewerEvents();
+
 	}
 
 	view(folder, count, startFrame) {
@@ -45,8 +46,10 @@ class ViewerController {
 	}
 
 	newViewLoaded() {
-		this.imgW = this.imgElement.width();
-		this.imgH = this.imgElement.height();
+		if (this.imgElement.attr('src') === undefined) return;
+
+		this.imgW = this.viewerDiv.width();
+		this.imgH = this.viewerDiv.height();
 		this.hasView = true;
 	}
 
@@ -144,6 +147,12 @@ class ViewerController {
 
 
 		this.viewerDiv.contextmenu(function (e) { e.preventDefault() });
+
+		// to keep pan in bouindaries when window resizes
+		$(window).data('controller', this);
+		$(window).resize(function () {
+			$(this).data('controller').newViewLoaded();
+		});
 	}
 
 	// ROTATION (frame change)
@@ -288,7 +297,7 @@ class ViewerController {
 	// TOUCH specific
 
 	resolveTouchState(e) {
-		$('#product-popup .popup-text').text(`${e.touches.length}`) // control
+		$('#product-popup .popup-text').text(`--${e.touches.length}`) // control
 		var touches = e.touches.length;
 		if (touches > 2) touches = 0;
 
@@ -325,7 +334,8 @@ class ViewerController {
 	startPanZoom(x, y, d) {
 		if (!this.hasView || this.inPan || this.inRot) return;
 
-		//this.lastPan = {x: x, y: y};
+		this.lastPan = {x: x, y: y};
+		this.lastD = d;
 		this.inPan = true;
 		//this.imgElement.css('cursor', 'move');
 	}
@@ -334,13 +344,25 @@ class ViewerController {
 		if (!this.hasView || !this.inPan) return;
 
 		this.inPan = false;
-		//this.imgElement.css('cursor', 'grab');
-		
-		//this.viewerDiv.off('touchmove');
 	}
 
 	registerPanZoom(x, y, d) {
 		$('#product-popup .popup-title').text(`${this.inPan} ${parseInt(x)} ${parseInt(y)} ${parseInt(d)}`)
+
+		var dx = x - this.lastPan.x;
+		var dy = y - this.lastPan.y;
+		this.lastPan = {x: x, y: y};
+		this.currTrans.x += dx;
+		this.currTrans.y += dy;
+		
+		// keep in bounds
+		this.currTrans.x = this.clamp(this.currTrans.x, this.imgW*(1-this.currZoom), 0);
+		this.currTrans.y = this.clamp(this.currTrans.y, this.imgH*(1-this.currZoom), 0);
+
+		this.zoom(x, y, (d - lastD));
+		this.lastD = d;
+		
+		this.setTransform();
 	}
 
 }
