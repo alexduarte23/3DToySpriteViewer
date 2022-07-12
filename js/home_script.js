@@ -1,7 +1,8 @@
 
 var g_products = [];
 var g_client = null;
-var g_product_url = './product';
+var g_url_prefix = './';
+var g_controller = null;
 
 $(window).ready(function () {
     $.getJSON("./data/products.json", function (products) {
@@ -17,6 +18,8 @@ $(window).ready(function () {
     });
 
     setupProductPopup();
+
+    g_controller = new ViewerController($('#product-popup .product-viewer')[0]);
 
     /*var offsetLeft = $('.gallery-item').eq(0).offset().left - $('.gallery').eq(0).offset().left
     $('#tag-bar').css('margin-left', offsetLeft);

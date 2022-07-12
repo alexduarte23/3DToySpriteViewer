@@ -2,7 +2,8 @@
 var g_clients = [];
 var g_products = [];
 var g_client = null;
-var g_product_url = '../product';
+var g_url_prefix = '../';
+var g_controller = null;
 
 function loadClientProducts(client) {
     $.getJSON("../data/products.json", function (products) {
@@ -61,5 +62,7 @@ $(window).ready(function () {
     });
 
     setupProductPopup();
+
+    g_controller = new ViewerController($('#product-popup .product-viewer')[0]);
 
 });

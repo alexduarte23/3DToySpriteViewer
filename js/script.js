@@ -40,6 +40,7 @@ function showProductPopup() {
     var product = g_products[$(this).data('idx')];
     $('#product-popup .popup-title').text(product.name);
     $('#product-popup .popup-text').text(product.description);
+    g_controller.view(g_url_prefix + 'data/' + product.folder, 18, 0);
     togglePopup($('#product-popup'));
 }
 
@@ -65,9 +66,9 @@ function openProductPage() {
     var product = g_products[$(this).data('idx')];
     console.log(product)
     if (g_client == null)
-        window.open(g_product_url + '?id=' + product.id, 'new_window')
+        window.open(g_url_prefix + 'product?id=' + product.id, 'new_window')
     else
-        window.open(g_product_url + '?id=' + product.id + '&pwd=' + g_client.password, 'new_window')
+        window.open(g_url_prefix + 'product?id=' + product.id + '&pwd=' + g_client.password, 'new_window')
 }
 
 
