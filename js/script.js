@@ -51,7 +51,7 @@ function showProductPopupFor(product) {
 }
 
 function hideProductPopup() {
-    window.history.replaceState(null, "", document.location.origin);
+    window.history.replaceState(null, "", getPathWithoutParams());
     togglePopup($('#product-popup'));
 }
 
