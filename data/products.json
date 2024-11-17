@@ -1,6 +1,6 @@
 [
 	{
-		"id": "wine_box",
+		"id": "wine_box_ferreira",
 		"name": "Garrafeira Ferreira",
 		"description": "",
 		"tags": [],
@@ -18,8 +18,8 @@
 		"thumbnailFrame": 10
 	},
 	{
-		"id": "Lays Gourmet",
-		"name": "lorem ipsum",
+		"id": "lays_gourmet",
+		"name": "Lays Gourmet",
 		"description": "",
 		"tags": [],
 		"folder": "lays_montijo",
