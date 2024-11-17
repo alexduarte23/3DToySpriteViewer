@@ -1,74 +1,29 @@
 [
 	{
-		"id": "a",
-		"name": "ola",
-		"description": "This is a test",
-		"tags": ["misc"],
+		"id": "wine_box",
+		"name": "Garrafeira Ferreira",
+		"description": "",
+		"tags": [],
 		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
+		"frameCount": 18,
+		"thumbnailFrame": 0
 	},
 	{
-		"id": "b",
+		"id": "cheeky_panda",
+		"name": "Cheeky Panda",
+		"description": "",
+		"tags": [],
+		"folder": "cheeky_panda",
+		"frameCount": 18,
+		"thumbnailFrame": 10
+	},
+	{
+		"id": "Lays Gourmet",
 		"name": "lorem ipsum",
-		"description": "This is a test",
-		"tags": ["Lorem Ipsum", "misc"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
-	},
-	{
-		"id": "c",
-		"name": "solar dolores",
-		"description": "This is a test",
-		"tags": ["Lorem Ipsum"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
-	},
-	{
-		"id": "d",
-		"name": "ola",
-		"description": "This is a test",
-		"tags": ["Lorem Ipsum"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
-	},
-	{
-		"id": "e",
-		"name": "ola",
-		"description": "This is a test",
-		"tags": ["misc"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
-	},
-	{
-		"id": "f",
-		"name": "adeus",
-		"description": "This is a test",
-		"tags": ["misc"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
-	},
-	{
-		"id": "g",
-		"name": "ola",
-		"description": "This is a test",
-		"tags": ["Lorem Ipsum"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
-	},
-	{
-		"id": "h",
-		"name": "lorem ipsum",
-		"description": "This is a test",
-		"tags": ["misc"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
-	},
-	{
-		"id": "i",
-		"name": "lorem ipsum",
-		"description": "This is a test",
-		"tags": ["misc"],
-		"folder": "wine_box",
-		"thumbnail": "0_0.jpg"
+		"description": "",
+		"tags": [],
+		"folder": "lays_montijo",
+		"frameCount": 18,
+		"thumbnailFrame": 0
 	}
 ]

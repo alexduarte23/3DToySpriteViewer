@@ -38,9 +38,24 @@ function togglePwdPopup() {
 function showProductPopup() {
     // fill popup
     var product = g_products[$(this).data('idx')];
+    showProductPopupFor(product)
+}
+
+function showProductPopupFor(product) {
+    // fill popup
     $('#product-popup .popup-title').text(product.name);
     $('#product-popup .popup-text').text(product.description);
-    g_controller.view(g_url_prefix + 'data/' + product.folder, 18, 0);
+    g_controller.view(`${g_url_prefix}data/${product.folder}`, product.frameCount, product.thumbnailFrame);
+    togglePopup($('#product-popup'));
+    window.history.replaceState(null, "", `${document.location.origin}?id=${product.id}`)
+    /*const newUrl = `${document.location.origin}?id=${product.id}`
+    if (document.location.href != newUrl) {
+        window.history.pushState(null, "", newUrl)
+    }*/
+}
+
+function hideProductPopup() {
+    window.history.replaceState(null, "", document.location.origin);
     togglePopup($('#product-popup'));
 }
 
@@ -82,9 +97,9 @@ function populateProductGallery(products) {
     var gallery = $('#product-gallery')
     for (var i = 0; i < products.length; i++) {
         var p = products[i];
-        img_num = Math.floor(Math.random() * 500 + 500);
+        //img_num = Math.floor(Math.random() * 500 + 500);
         $('<div>', {'class': 'gallery-item', click: showProductPopup /*openProductPage*/})
-            .append($('<img>', {'class': 'item-image', src: `https://picsum.photos/${img_num}`}))
+            .append($('<img>', {'class': 'item-image', src: `${g_url_prefix}data/${p.folder}/0_${p.thumbnailFrame}.jpg`}))
             .append($('<div>', {'class': 'item-overlay'})
                 .append($('<p>', {'class': 'item-title', text: p.name}))
             )
@@ -122,8 +137,8 @@ function setupPwdPopup(onSucess) {
 }
 
 function setupProductPopup() {
-    $('#product-popup .backcatcher').click(() => togglePopup($('#product-popup')));
-    $('#product-popup .close-icon').click(() => togglePopup($('#product-popup')));
+    $('#product-popup .backcatcher').click(() => hideProductPopup());
+    $('#product-popup .close-icon').click(() => hideProductPopup());
 }
 
 

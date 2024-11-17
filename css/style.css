@@ -34,7 +34,7 @@ body {
 #logo {
     display: block;
     margin: 20px auto;
-    height: 110px;
+    height: 80px;
     filter: invert(1);
 }
 
@@ -139,7 +139,7 @@ hr {
 #content {
     width: 80vw;
     margin: 0 auto;
-    padding: 30px;
+    padding: 20px;
     padding-top: 90px;
 }
 
@@ -170,10 +170,12 @@ hr {
 #tag-bar {
     display: flex;
     flex-wrap: wrap;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .tag {
-    margin: 5px;
+    margin-right: 8px;
     font-size: 1.1rem;
     border: solid 1px grey;
     padding: 2px 4px;
@@ -197,7 +199,10 @@ hr {
 
 .gallery {
     margin: 0 auto;
-    margin-top: 25px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
     /*padding: 30px;*/
     justify-content: center;
     align-items: center;
@@ -212,7 +217,7 @@ hr {
 }
 
 #product-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(max-content, 450px));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 #client-gallery {
@@ -221,7 +226,7 @@ hr {
 
 .gallery-item {
     background: lightgrey;
-    height: 300px;
+    height: 350px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
