@@ -43,9 +43,9 @@ function processQueryParams() {
 
     const product = g_products.find((p) => p.id == params.id)
     if (product === undefined) {
-        window.history.replaceState(null, "", window.location.origin);
+        window.history.replaceState(null, "", getPathWithoutParams());
     } else {
-        window.history.replaceState(null, "", `${window.location.origin}/?id=${params.id}`);
+        window.history.replaceState(null, "", `${getPathWithoutParams()}?id=${params.id}`);
         showProductPopupFor(product)
     }
 }

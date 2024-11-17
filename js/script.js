@@ -47,16 +47,16 @@ function showProductPopupFor(product) {
     $('#product-popup .popup-text').text(product.description);
     g_controller.view(`${g_url_prefix}data/${product.folder}`, product.frameCount, product.thumbnailFrame);
     togglePopup($('#product-popup'));
-    window.history.replaceState(null, "", `${document.location.origin}?id=${product.id}`)
-    /*const newUrl = `${document.location.origin}?id=${product.id}`
-    if (document.location.href != newUrl) {
-        window.history.pushState(null, "", newUrl)
-    }*/
+    window.history.replaceState(null, "", `${getPathWithoutParams()}?id=${product.id}`)
 }
 
 function hideProductPopup() {
     window.history.replaceState(null, "", document.location.origin);
     togglePopup($('#product-popup'));
+}
+
+function getPathWithoutParams() {
+    return document.location.origin + document.location.pathname
 }
 
 
